@@ -1,0 +1,3596 @@
+{
+	"info": {
+		"_postman_id": "2037f7a7-5f64-4ed7-9a7a-591bf56a2f4d",
+		"name": "Cinema-Tests-App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44572147",
+		"_collection_link": "https://karen-4205223.postman.co/workspace/Cinema-Tests-App~3697e647-d94a-48d2-b1bb-b579e7760c62/collection/44572147-2037f7a7-5f64-4ed7-9a7a-591bf56a2f4d?action=share&source=collection_link&creator=44572147"
+	},
+	"item": [
+		{
+			"name": "/auth",
+			"item": [
+				{
+					"name": "TC001 - Cadastrar usuário com dados válidos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Karen\",\r\n  \"email\": \"userQA30@example.com\",\r\n  \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "BUG - 400 - Password must be at least 6 characters long",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Karen\",\r\n  \"email\": \"userQA@example.com\",\r\n  \"password\": \"12345\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/register",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "115"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"73-2kjRr4xheMpIIlrrmnuX+9CkBCA\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 18:05:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Validation failed\",\n    \"errors\": {\n        \"password\": \"Password must be at least 6 characters long\"\n    }\n}"
+						},
+						{
+							"name": "201 - User registered successfully",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Karen\",\r\n  \"email\": \"userQA@example.com\",\r\n  \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/register",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "302"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"12e-HN3nHDq71xxO3hJ8/oeRs21oKcQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 18:11:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"685d8d35d93340dcbb0312e6\",\n        \"name\": \"Karen\",\n        \"email\": \"userqa@example.com\",\n        \"role\": \"user\",\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MTQ2MSwiZXhwIjoxNzUxMDQ3ODYxfQ.JLLDmehth-ePyRURZZYkHrpoi4w9_E79usM1cFpGmKk\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "TC002 - Atualizar perfil de usuário existente",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MTQ2MSwiZXhwIjoxNzUxMDQ3ODYxfQ.JLLDmehth-ePyRURZZYkHrpoi4w9_E79usM1cFpGmKk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Karen 001\",\r\n  \"email\": \"userQA@example.com\",\r\n  \"password\": \"1234567\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"profile"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Profile updated successfully",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2NDgxNiwiZXhwIjoxNzUxMDUxMjE2fQ.rGc0MBA9TvTypZALmAU-Z-y_AL0XXG9vrYiVWI7Lctk",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Karen 001\",\r\n  \"email\": \"userQA@example.com\",\r\n  \"password\": \"1234567\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/profile",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"profile"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "348"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"15c-AUyPokStj5g/F+bGatSZLLRqd0A\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 18:23:55 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Perfil atualizado com sucesso\",\n    \"data\": {\n        \"_id\": \"685d8d35d93340dcbb0312e6\",\n        \"name\": \"Karen 001\",\n        \"email\": \"userqa@example.com\",\n        \"role\": \"user\",\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "TC003 - Buscar por usuário atual",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MTQ2MSwiZXhwIjoxNzUxMDQ3ODYxfQ.JLLDmehth-ePyRURZZYkHrpoi4w9_E79usM1cFpGmKk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/auth/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - User profile data",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MTQ2MSwiZXhwIjoxNzUxMDQ3ODYxfQ.JLLDmehth-ePyRURZZYkHrpoi4w9_E79usM1cFpGmKk",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/auth/me",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"me"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "124"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"7c-0x8kHhSdBkc8b1qhOplhaEnD6e8\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 18:25:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"685d8d35d93340dcbb0312e6\",\n        \"name\": \"Karen 001\",\n        \"email\": \"userqa@example.com\",\n        \"role\": \"user\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "/reservations",
+			"item": [
+				{
+					"name": "TC004 - Realizar uma nova reserva",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MTQ2MSwiZXhwIjoxNzUxMDQ3ODYxfQ.JLLDmehth-ePyRURZZYkHrpoi4w9_E79usM1cFpGmKk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"session\": \"685af22d255d81d0da4d1758\",\r\n  \"seats\": [\r\n    { \"row\": \"A\", \"number\": 2, \"type\": \"half\" },\r\n    { \"row\": \"B\", \"number\": 3, \"type\": \"full\" }\r\n  ],\r\n  \"user\": \"685d8d35d93340dcbb0312e6\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/reservations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"reservations"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201 - Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MTQ2MSwiZXhwIjoxNzUxMDQ3ODYxfQ.JLLDmehth-ePyRURZZYkHrpoi4w9_E79usM1cFpGmKk",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"session\": \"685af22d255d81d0da4d1758\",\r\n  \"seats\": [\r\n    { \"row\": \"A\", \"number\": 2, \"type\": \"half\" },\r\n    { \"row\": \"B\", \"number\": 3, \"type\": \"full\" }\r\n  ],\r\n  \"user\": \"685d8d35d93340dcbb0312e6\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/reservations",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"reservations"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "6185"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1829-DyOWf/+hzlLHDGenT+jyK0sRHs0\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 18:49:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"user\": \"685d8d35d93340dcbb0312e6\",\n        \"session\": {\n            \"_id\": \"685af22d255d81d0da4d1758\",\n            \"movie\": {\n                \"_id\": \"685af22d255d81d0da4d1749\",\n                \"title\": \"The Avengers\",\n                \"poster\": \"avengers.jpg\",\n                \"id\": \"685af22d255d81d0da4d1749\"\n            },\n            \"theater\": {\n                \"_id\": \"685af22d255d81d0da4d174c\",\n                \"name\": \"Theater 1\",\n                \"id\": \"685af22d255d81d0da4d174c\"\n            },\n            \"datetime\": \"2025-06-24T15:00:00.000Z\",\n            \"fullPrice\": 15,\n            \"halfPrice\": 7.5,\n            \"seats\": [\n                {\n                    \"row\": \"A\",\n                    \"number\": 1,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 2,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 3,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 4,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 5,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 6,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 7,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 8,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 9,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 10,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 11,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 12,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 13,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 14,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 15,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 1,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 2,\n                    \"status\": \"occupied\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 3,\n                    \"status\": \"occupied\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 4,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 5,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 6,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 7,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 8,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 9,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 10,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 11,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 12,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 13,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 14,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 15,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 1,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 2,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 3,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 4,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 5,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 6,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 7,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 8,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 9,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 10,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 11,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 12,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 13,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 14,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 15,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 1,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 2,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 3,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 4,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 5,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 6,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 7,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 8,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 9,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 10,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 11,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 12,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 13,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 14,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 15,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 1,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 2,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 3,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 4,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 5,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 6,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 7,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 8,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 9,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 10,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 11,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 12,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 13,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 14,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 15,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 1,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 2,\n                    \"status\": \"occupied\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 3,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 4,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 5,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 6,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 7,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 8,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 9,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 10,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 11,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 12,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 13,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 14,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 15,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 1,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 2,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 3,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 4,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 5,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 6,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 7,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 8,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 9,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 10,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 11,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 12,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 13,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 14,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 15,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 1,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 2,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 3,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 4,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 5,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 6,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 7,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 8,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 9,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 10,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 11,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 12,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 13,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 14,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 15,\n                    \"status\": \"available\"\n                }\n            ],\n            \"createdAt\": \"2025-06-24T18:45:01.518Z\",\n            \"__v\": 0,\n            \"updatedAt\": \"2025-06-26T18:49:44.890Z\",\n            \"id\": \"685af22d255d81d0da4d1758\"\n        },\n        \"seats\": [\n            {\n                \"row\": \"B\",\n                \"number\": 2,\n                \"type\": \"half\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 3,\n                \"type\": \"full\"\n            }\n        ],\n        \"totalPrice\": 22.5,\n        \"status\": \"confirmed\",\n        \"paymentStatus\": \"completed\",\n        \"paymentMethod\": \"credit_card\",\n        \"paymentDate\": \"2025-06-26T18:49:44.805Z\",\n        \"_id\": \"685d9648d93340dcbb03132f\",\n        \"createdAt\": \"2025-06-26T18:49:44.806Z\",\n        \"updatedAt\": \"2025-06-26T18:49:44.806Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "TC005 - Buscar a reserva realizada",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MTQ2MSwiZXhwIjoxNzUxMDQ3ODYxfQ.JLLDmehth-ePyRURZZYkHrpoi4w9_E79usM1cFpGmKk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/reservations/685d9648d93340dcbb03132f",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"reservations",
+								"685d9648d93340dcbb03132f"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Movie details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MTQ2MSwiZXhwIjoxNzUxMDQ3ODYxfQ.JLLDmehth-ePyRURZZYkHrpoi4w9_E79usM1cFpGmKk",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/reservations/685d9648d93340dcbb03132f",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"reservations",
+										"685d9648d93340dcbb03132f"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "6245"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1865-HvMlpgWpeSdp2+NHgLkUeldCHGg\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 19:02:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"685d9648d93340dcbb03132f\",\n        \"user\": {\n            \"_id\": \"685d8d35d93340dcbb0312e6\",\n            \"name\": \"Karen 001\",\n            \"email\": \"userqa@example.com\"\n        },\n        \"session\": {\n            \"_id\": \"685af22d255d81d0da4d1758\",\n            \"movie\": {\n                \"_id\": \"685af22d255d81d0da4d1749\",\n                \"title\": \"The Avengers\",\n                \"poster\": \"avengers.jpg\",\n                \"id\": \"685af22d255d81d0da4d1749\"\n            },\n            \"theater\": {\n                \"_id\": \"685af22d255d81d0da4d174c\",\n                \"name\": \"Theater 1\",\n                \"id\": \"685af22d255d81d0da4d174c\"\n            },\n            \"datetime\": \"2025-06-24T15:00:00.000Z\",\n            \"fullPrice\": 15,\n            \"halfPrice\": 7.5,\n            \"seats\": [\n                {\n                    \"row\": \"A\",\n                    \"number\": 1,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 2,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 3,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 4,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 5,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 6,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 7,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 8,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 9,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 10,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 11,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 12,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 13,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 14,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"A\",\n                    \"number\": 15,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 1,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 2,\n                    \"status\": \"occupied\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 3,\n                    \"status\": \"occupied\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 4,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 5,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 6,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 7,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 8,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 9,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 10,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 11,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 12,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 13,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 14,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"B\",\n                    \"number\": 15,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 1,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 2,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 3,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 4,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 5,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 6,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 7,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 8,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 9,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 10,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 11,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 12,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 13,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 14,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"C\",\n                    \"number\": 15,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 1,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 2,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 3,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 4,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 5,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 6,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 7,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 8,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 9,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 10,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 11,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 12,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 13,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 14,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"D\",\n                    \"number\": 15,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 1,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 2,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 3,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 4,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 5,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 6,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 7,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 8,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 9,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 10,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 11,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 12,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 13,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 14,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"E\",\n                    \"number\": 15,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 1,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 2,\n                    \"status\": \"occupied\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 3,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 4,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 5,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 6,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 7,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 8,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 9,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 10,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 11,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 12,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 13,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 14,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"F\",\n                    \"number\": 15,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 1,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 2,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 3,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 4,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 5,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 6,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 7,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 8,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 9,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 10,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 11,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 12,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 13,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 14,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"G\",\n                    \"number\": 15,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 1,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 2,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 3,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 4,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 5,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 6,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 7,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 8,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 9,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 10,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 11,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 12,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 13,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 14,\n                    \"status\": \"available\"\n                },\n                {\n                    \"row\": \"H\",\n                    \"number\": 15,\n                    \"status\": \"available\"\n                }\n            ],\n            \"createdAt\": \"2025-06-24T18:45:01.518Z\",\n            \"__v\": 0,\n            \"updatedAt\": \"2025-06-26T18:49:44.890Z\",\n            \"id\": \"685af22d255d81d0da4d1758\"\n        },\n        \"seats\": [\n            {\n                \"row\": \"B\",\n                \"number\": 2,\n                \"type\": \"half\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 3,\n                \"type\": \"full\"\n            }\n        ],\n        \"totalPrice\": 22.5,\n        \"status\": \"confirmed\",\n        \"paymentStatus\": \"completed\",\n        \"paymentMethod\": \"credit_card\",\n        \"paymentDate\": \"2025-06-26T18:49:44.805Z\",\n        \"createdAt\": \"2025-06-26T18:49:44.806Z\",\n        \"updatedAt\": \"2025-06-26T18:49:44.806Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "TC006 - Atualizar reserva (only adm)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2NDgxNiwiZXhwIjoxNzUxMDUxMjE2fQ.rGc0MBA9TvTypZALmAU-Z-y_AL0XXG9vrYiVWI7Lctk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"session\": \"685af22d255d81d0da4d1758\",\r\n  \"seats\": [\r\n    { \"row\": \"B\", \"number\": 4, \"type\": \"half\" },\r\n    { \"row\": \"C\", \"number\": 3, \"type\": \"full\" }\r\n  ],\r\n  \"user\": \"685d8d35d93340dcbb0312e6\",\r\n  \"status\": \"confirmed\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/reservations/685d9648d93340dcbb03132f",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"reservations",
+								"685d9648d93340dcbb03132f"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2NDgxNiwiZXhwIjoxNzUxMDUxMjE2fQ.rGc0MBA9TvTypZALmAU-Z-y_AL0XXG9vrYiVWI7Lctk",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"session\": \"685af22d255d81d0da4d1758\",\r\n  \"seats\": [\r\n    { \"row\": \"B\", \"number\": 4, \"type\": \"half\" },\r\n    { \"row\": \"C\", \"number\": 3, \"type\": \"full\" }\r\n  ],\r\n  \"user\": \"685d8d35d93340dcbb0312e6\",\r\n  \"status\": \"confirmed\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/reservations/685d9648d93340dcbb03132f",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"reservations",
+										"685d9648d93340dcbb03132f"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "437"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1b5-iYlx80gJlctOrwy/ArH/TFW0w4s\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 19:12:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"685d9648d93340dcbb03132f\",\n        \"user\": \"685d8d35d93340dcbb0312e6\",\n        \"session\": \"685af22d255d81d0da4d1758\",\n        \"seats\": [\n            {\n                \"row\": \"B\",\n                \"number\": 2,\n                \"type\": \"half\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 3,\n                \"type\": \"full\"\n            }\n        ],\n        \"totalPrice\": 22.5,\n        \"status\": \"confirmed\",\n        \"paymentStatus\": \"completed\",\n        \"paymentMethod\": \"credit_card\",\n        \"paymentDate\": \"2025-06-26T18:49:44.805Z\",\n        \"createdAt\": \"2025-06-26T18:49:44.806Z\",\n        \"updatedAt\": \"2025-06-26T18:49:44.806Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "TC007 - Deletar reserva (only adm)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2NDgxNiwiZXhwIjoxNzUxMDUxMjE2fQ.rGc0MBA9TvTypZALmAU-Z-y_AL0XXG9vrYiVWI7Lctk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/reservations/685d9648d93340dcbb03132f",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"reservations",
+								"685d9648d93340dcbb03132f"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2NDgxNiwiZXhwIjoxNzUxMDUxMjE2fQ.rGc0MBA9TvTypZALmAU-Z-y_AL0XXG9vrYiVWI7Lctk",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/reservations/685d9648d93340dcbb03132f",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"reservations",
+										"685d9648d93340dcbb03132f"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "48"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"30-o3yiqptOiAjogYFBIDdE6SCuEwU\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 19:15:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Reservation removed\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "user registration and reservation - negative scenarios",
+			"item": [
+				{
+					"name": "TC008 - Cadastro de usuário com email duplicado",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Karen\",\r\n  \"email\": \"userQA@example.com\",\r\n  \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "400 - Invalid input data",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Karen\",\r\n  \"email\": \"userQA@example.com\",\r\n  \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/register",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "49"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"31-WKEMg8zALB1Ko0WjUHi/6RBGHVc\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 19:28:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"User already exists\"\n}"
+						}
+					]
+				},
+				{
+					"name": "TC009 - Realiza login com credenciais inválidas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"userQA@example.com\",\r\n  \"password\": \"1234567\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "400 - Invalid credentials",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"userQA@example.com\",\r\n  \"password\": \"1234567\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "55"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"37-5uDpJTljPBecOPs/j7OXFdPRcmQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 19:29:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Invalid email or password\"\n}"
+						}
+					]
+				},
+				{
+					"name": "TC010 - Buscar um filme por ID inexistente",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/movies/123456789",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies",
+								"123456789"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "404 -Movie not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/movies/123456789",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"movies",
+										"123456789"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "45"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2d-76yzoZ3aJF1oDN8vFKpqErDRmpM\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 19:31:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Movie not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "TC011 - Fazer uma reserva com credenciais inválidas",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"session\": \"685af22d255d81d0da4d1758\",\r\n  \"seats\": [\r\n    { \"row\": \"Y\", \"number\": 2, \"type\": \"half\" },\r\n    { \"row\": \"Z\", \"number\": 3, \"type\": \"full\" }\r\n  ],\r\n  \"user\": \"685d8d35d93340dcbb0312e6\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/reservations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"reservations"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"session\": \"685af22d255d81d0da4d1758\",\r\n  \"seats\": [\r\n    { \"row\": \"Y\", \"number\": 2, \"type\": \"half\" },\r\n    { \"row\": \"Z\", \"number\": 3, \"type\": \"full\" }\r\n  ],\r\n  \"user\": \"685d8d35d93340dcbb0312e6\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/reservations",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"reservations"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "75"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4b-FuaUZ/sKvFeMFVNvFBL+m8hUafc\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 19:34:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"The following seats are not available: Y2, Z3\"\n}"
+						}
+					]
+				},
+				{
+					"name": "TC012 - Buscar a reserva por ID inválido",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/reservations/123456789",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"reservations",
+								"123456789"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "400 Bad Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/reservations/123456789",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"reservations",
+										"123456789"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1327"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"52f-T8ieRPDrKPPRaoKOK88qSEj7Hnw\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 19:36:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Resource not found\",\n    \"stack\": \"CastError: Cast to ObjectId failed for value \\\"123456789\\\" (type string) at path \\\"_id\\\" for model \\\"Reservation\\\"\\n    at SchemaObjectId.cast (C:\\\\Users\\\\breme\\\\cinema-challenge-back\\\\node_modules\\\\mongoose\\\\lib\\\\schema\\\\objectId.js:251:11)\\n    at SchemaType.applySetters (C:\\\\Users\\\\breme\\\\cinema-challenge-back\\\\node_modules\\\\mongoose\\\\lib\\\\schemaType.js:1255:12)\\n    at SchemaType.castForQuery (C:\\\\Users\\\\breme\\\\cinema-challenge-back\\\\node_modules\\\\mongoose\\\\lib\\\\schemaType.js:1673:17)\\n    at cast (C:\\\\Users\\\\breme\\\\cinema-challenge-back\\\\node_modules\\\\mongoose\\\\lib\\\\cast.js:390:32)\\n    at Query.cast (C:\\\\Users\\\\breme\\\\cinema-challenge-back\\\\node_modules\\\\mongoose\\\\lib\\\\query.js:5055:12)\\n    at Query._castConditions (C:\\\\Users\\\\breme\\\\cinema-challenge-back\\\\node_modules\\\\mongoose\\\\lib\\\\query.js:2351:10)\\n    at model.Query._findOne (C:\\\\Users\\\\breme\\\\cinema-challenge-back\\\\node_modules\\\\mongoose\\\\lib\\\\query.js:2674:8)\\n    at model.Query.exec (C:\\\\Users\\\\breme\\\\cinema-challenge-back\\\\node_modules\\\\mongoose\\\\lib\\\\query.js:4604:80)\\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\\n    at async exports.getReservationById (C:\\\\Users\\\\breme\\\\cinema-challenge-back\\\\src\\\\controllers\\\\reservationController.js:92:25)\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "/movies",
+			"item": [
+				{
+					"name": "TC013 - Cadastrar novo filme",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Teste QA\",\r\n  \"synopsis\": \"tecnologia\",\r\n  \"director\": \"QA\",\r\n  \"genres\": [\r\n    \"string\"\r\n  ],\r\n  \"duration\": 1,\r\n  \"classification\": \"string\",\r\n  \"poster\": \"string\",\r\n  \"releaseDate\": \"2025-06-26\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/movies",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201 -Movie created successfully",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"title\": \"Teste QA\",\r\n  \"synopsis\": \"tecnologia\",\r\n  \"director\": \"QA\",\r\n  \"genres\": [\r\n    \"string\"\r\n  ],\r\n  \"duration\": 1,\r\n  \"classification\": \"string\",\r\n  \"poster\": \"string\",\r\n  \"releaseDate\": \"2025-06-26\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/movies",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"movies"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "353"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"161-rGYngRSNMJGwBMKWoVNGV5fnt30\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 19:44:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"title\": \"Teste QA\",\n        \"synopsis\": \"tecnologia\",\n        \"director\": \"QA\",\n        \"genres\": [\n            \"string\"\n        ],\n        \"duration\": 1,\n        \"classification\": \"string\",\n        \"poster\": \"string\",\n        \"releaseDate\": \"2025-06-26T00:00:00.000Z\",\n        \"_id\": \"685da30bd93340dcbb031361\",\n        \"createdAt\": \"2025-06-26T19:44:11.043Z\",\n        \"updatedAt\": \"2025-06-26T19:44:11.043Z\",\n        \"__v\": 0,\n        \"id\": \"685da30bd93340dcbb031361\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "TC014 - Atualizar dados do filme cadastrado",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Teste QA Atualização\",\r\n  \"synopsis\": \"tecnologia\",\r\n  \"director\": \"QA\",\r\n  \"genres\": [\r\n    \"string\"\r\n  ],\r\n  \"duration\": 1,\r\n  \"classification\": \"string\",\r\n  \"poster\": \"string\",\r\n  \"releaseDate\": \"2025-06-26\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/movies/685da30bd93340dcbb031361",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies",
+								"685da30bd93340dcbb031361"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Movie updated successfully",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"title\": \"Teste QA Atualização\",\r\n  \"synopsis\": \"tecnologia\",\r\n  \"director\": \"QA\",\r\n  \"genres\": [\r\n    \"string\"\r\n  ],\r\n  \"duration\": 1,\r\n  \"classification\": \"string\",\r\n  \"poster\": \"string\",\r\n  \"releaseDate\": \"2025-06-26\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/movies/685da30bd93340dcbb031361",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"movies",
+										"685da30bd93340dcbb031361"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "367"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"16f-2nG/C9BGtdrs7t01tAmewezlcBY\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 19:45:58 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"685da30bd93340dcbb031361\",\n        \"title\": \"Teste QA Atualização\",\n        \"synopsis\": \"tecnologia\",\n        \"director\": \"QA\",\n        \"genres\": [\n            \"string\"\n        ],\n        \"duration\": 1,\n        \"classification\": \"string\",\n        \"poster\": \"string\",\n        \"releaseDate\": \"2025-06-26T00:00:00.000Z\",\n        \"createdAt\": \"2025-06-26T19:44:11.043Z\",\n        \"updatedAt\": \"2025-06-26T19:45:58.204Z\",\n        \"__v\": 0,\n        \"id\": \"685da30bd93340dcbb031361\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "TC015 - Buscar por filme atualizado",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/movies/685da30bd93340dcbb031361",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies",
+								"685da30bd93340dcbb031361"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Movie details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/movies/685da30bd93340dcbb031361",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"movies",
+										"685da30bd93340dcbb031361"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "381"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"17d-EosgRZ/G880vq6SzxG26GuvULaM\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 19:46:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"685da30bd93340dcbb031361\",\n        \"title\": \"Teste QA Atualização\",\n        \"synopsis\": \"tecnologia\",\n        \"director\": \"QA\",\n        \"genres\": [\n            \"string\"\n        ],\n        \"duration\": 1,\n        \"classification\": \"string\",\n        \"poster\": \"string\",\n        \"releaseDate\": \"2025-06-26T00:00:00.000Z\",\n        \"createdAt\": \"2025-06-26T19:44:11.043Z\",\n        \"updatedAt\": \"2025-06-26T19:45:58.204Z\",\n        \"__v\": 0,\n        \"sessions\": [],\n        \"id\": \"685da30bd93340dcbb031361\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "TC016 - Deletar  filme",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/movies/685da30bd93340dcbb031361",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies",
+								"685da30bd93340dcbb031361"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Movie deleted successfully",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/movies/685da30bd93340dcbb031361",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"movies",
+										"685da30bd93340dcbb031361"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2a-hADHoyMaFDqXJclxgYdNbQRmW6U\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 19:47:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Movie removed\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "/session",
+			"item": [
+				{
+					"name": "TC017 - Cadastrar uma nova sessão",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"movie\": \"685af22d255d81d0da4d1749\",\r\n  \"theater\": \"685af22d255d81d0da4d174c\",\r\n  \"datetime\": \"2025-06-30T18:30:00.000Z\",\r\n  \"fullPrice\": 20,\r\n  \"halfPrice\": 10\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/sessions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sessions"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201 Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"movie\": \"685af22d255d81d0da4d1749\",\r\n  \"theater\": \"685af22d255d81d0da4d174c\",\r\n  \"datetime\": \"2025-06-30T18:30:00.000Z\",\r\n  \"fullPrice\": 20,\r\n  \"halfPrice\": 10\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/sessions",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"sessions"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "5654"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1616-jZAMmSKLoXy24dkuASZjn/jP/oI\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 19:53:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"movie\": \"685af22d255d81d0da4d1749\",\n        \"theater\": \"685af22d255d81d0da4d174c\",\n        \"datetime\": \"2025-06-30T18:30:00.000Z\",\n        \"fullPrice\": 20,\n        \"halfPrice\": 10,\n        \"seats\": [\n            {\n                \"row\": \"A\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 15,\n                \"status\": \"available\"\n            }\n        ],\n        \"_id\": \"685da530d93340dcbb03136f\",\n        \"createdAt\": \"2025-06-26T19:53:20.539Z\",\n        \"updatedAt\": \"2025-06-26T19:53:20.539Z\",\n        \"__v\": 0,\n        \"id\": \"685da530d93340dcbb03136f\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "TC018 - Atualizar dados da sessão cadastrada",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"movie\": \"685af22d255d81d0da4d1749\",\r\n  \"theater\": \"685af22d255d81d0da4d174c\",\r\n  \"datetime\": \"2025-06-30T18:30:00.000Z\",\r\n  \"fullPrice\": 2,\r\n  \"halfPrice\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/sessions/685da530d93340dcbb03136f",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sessions",
+								"685da530d93340dcbb03136f"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"movie\": \"685af22d255d81d0da4d1749\",\r\n  \"theater\": \"685af22d255d81d0da4d174c\",\r\n  \"datetime\": \"2025-06-30T18:30:00.000Z\",\r\n  \"fullPrice\": 2,\r\n  \"halfPrice\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/sessions/685da530d93340dcbb03136f",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"sessions",
+										"685da530d93340dcbb03136f"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "5653"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1615-OHIQN8ZnKyJrg+dVsqfNZ1SYoik\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 19:54:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"685da530d93340dcbb03136f\",\n        \"movie\": \"685af22d255d81d0da4d1749\",\n        \"theater\": \"685af22d255d81d0da4d174c\",\n        \"datetime\": \"2025-06-30T18:30:00.000Z\",\n        \"fullPrice\": 2,\n        \"halfPrice\": 10,\n        \"seats\": [\n            {\n                \"row\": \"A\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 15,\n                \"status\": \"available\"\n            }\n        ],\n        \"createdAt\": \"2025-06-26T19:53:20.539Z\",\n        \"updatedAt\": \"2025-06-26T19:54:44.825Z\",\n        \"__v\": 0,\n        \"id\": \"685da530d93340dcbb03136f\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "TC019 - Buscar sessão criada anteriormente com o ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/sessions/685da530d93340dcbb03136f",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sessions",
+								"685da530d93340dcbb03136f"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/sessions/685da530d93340dcbb03136f",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"sessions",
+										"685da530d93340dcbb03136f"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "6233"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1859-A1f/7QiMgB8YHtK+NHlU5R6J+m0\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 19:55:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"685da530d93340dcbb03136f\",\n        \"movie\": {\n            \"_id\": \"685af22d255d81d0da4d1749\",\n            \"customId\": \"2\",\n            \"title\": \"The Avengers\",\n            \"synopsis\": \"Earth's mightiest heroes must come together to save the world.\",\n            \"director\": \"Joss Whedon\",\n            \"genres\": [\n                \"Action\",\n                \"Adventure\"\n            ],\n            \"duration\": 143,\n            \"classification\": \"PG-13\",\n            \"poster\": \"avengers.jpg\",\n            \"releaseDate\": \"2012-05-04T00:00:00.000Z\",\n            \"createdAt\": \"2025-06-24T18:45:01.360Z\",\n            \"__v\": 0,\n            \"updatedAt\": \"2025-06-24T18:45:01.362Z\",\n            \"id\": \"685af22d255d81d0da4d1749\"\n        },\n        \"theater\": {\n            \"_id\": \"685af22d255d81d0da4d174c\",\n            \"name\": \"Theater 1\",\n            \"capacity\": 120,\n            \"type\": \"standard\",\n            \"createdAt\": \"2025-06-24T18:45:01.428Z\",\n            \"__v\": 0,\n            \"updatedAt\": \"2025-06-24T18:45:01.431Z\",\n            \"id\": \"685af22d255d81d0da4d174c\"\n        },\n        \"datetime\": \"2025-06-30T18:30:00.000Z\",\n        \"fullPrice\": 2,\n        \"halfPrice\": 10,\n        \"seats\": [\n            {\n                \"row\": \"A\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"A\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"B\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"C\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"D\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"E\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"F\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"G\",\n                \"number\": 15,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 1,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 2,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 3,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 4,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 5,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 6,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 7,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 8,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 9,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 10,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 11,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 12,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 13,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 14,\n                \"status\": \"available\"\n            },\n            {\n                \"row\": \"H\",\n                \"number\": 15,\n                \"status\": \"available\"\n            }\n        ],\n        \"createdAt\": \"2025-06-26T19:53:20.539Z\",\n        \"updatedAt\": \"2025-06-26T19:54:44.825Z\",\n        \"__v\": 0,\n        \"id\": \"685da530d93340dcbb03136f\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "TC020 - Deletar a sessão criada anteriormente",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/sessions/685da530d93340dcbb03136f",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sessions",
+								"685da530d93340dcbb03136f"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/sessions/685da530d93340dcbb03136f",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"sessions",
+										"685da530d93340dcbb03136f"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2c-NP/wO3eQyrmT4lAA509rsTHxBtA\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 19:56:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Session removed\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "/theaters",
+			"item": [
+				{
+					"name": "TC021 - Cadastrar uma sala de teatro válida",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"QA Test\",\r\n  \"capacity\": 1,\r\n  \"type\": \"standard\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/theaters",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"theaters"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201 - Theater created successfully",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"QA Test\",\r\n  \"capacity\": 1,\r\n  \"type\": \"standard\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/theaters",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"theaters"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "224"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e0-4oJibj/4DKN42EEHRBQrHwlR1SE\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 20:00:58 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"name\": \"QA Test\",\n        \"capacity\": 1,\n        \"type\": \"standard\",\n        \"_id\": \"685da6fad93340dcbb03137d\",\n        \"createdAt\": \"2025-06-26T20:00:58.891Z\",\n        \"updatedAt\": \"2025-06-26T20:00:58.891Z\",\n        \"__v\": 0,\n        \"id\": \"685da6fad93340dcbb03137d\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "TC022 - Atualizar dados da sala de teatro cadastrada",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"QA Test\",\r\n  \"capacity\": 100,\r\n  \"type\": \"standard\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/theaters/685da6fad93340dcbb03137d",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"theaters",
+								"685da6fad93340dcbb03137d"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Theater updated successfully",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"QA Test\",\r\n  \"capacity\": 100,\r\n  \"type\": \"standard\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/theaters/685da6fad93340dcbb03137d",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"theaters",
+										"685da6fad93340dcbb03137d"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "226"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e2-L26glUEQo5yQXpj4L3XZ0ribw4U\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 20:02:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"685da6fad93340dcbb03137d\",\n        \"name\": \"QA Test\",\n        \"capacity\": 100,\n        \"type\": \"standard\",\n        \"createdAt\": \"2025-06-26T20:00:58.891Z\",\n        \"updatedAt\": \"2025-06-26T20:02:34.356Z\",\n        \"__v\": 0,\n        \"id\": \"685da6fad93340dcbb03137d\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "TC023 - Buscar sala de teatro criado anteriormente com o ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/theaters/685da6fad93340dcbb03137d",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"theaters",
+								"685da6fad93340dcbb03137d"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Theater details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/theaters/685da6fad93340dcbb03137d",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"theaters",
+										"685da6fad93340dcbb03137d"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "240"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"f0-2qK/XbthLce76HxY6yu39qSm+q8\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 20:03:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"685da6fad93340dcbb03137d\",\n        \"name\": \"QA Test\",\n        \"capacity\": 100,\n        \"type\": \"standard\",\n        \"createdAt\": \"2025-06-26T20:00:58.891Z\",\n        \"updatedAt\": \"2025-06-26T20:02:34.356Z\",\n        \"__v\": 0,\n        \"sessions\": [],\n        \"id\": \"685da6fad93340dcbb03137d\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "TC024 - Deletar a sala de teatro criada anteriormente",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/theaters/685da6fad93340dcbb03137d",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"theaters",
+								"685da6fad93340dcbb03137d"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Theater deleted successfully",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/theaters/685da6fad93340dcbb03137d",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"theaters",
+										"685da6fad93340dcbb03137d"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2c-4tDAm7NDORLuhe1byKnVNeIffY4\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 20:04:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Theater removed\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "authorization & authentication flow",
+			"item": [
+				{
+					"name": "TC025 - Acessar rota protegida sem token",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/auth/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "401 - Unauthorized",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/auth/me",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"me"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "65"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"41-TJq3LYiwj1On+7IZ17oLU5tM1Zs\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 20:12:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Not authorized to access this route\"\n}"
+						}
+					]
+				},
+				{
+					"name": "TC026 -Atualizar perfil sem autenticação",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Karen 001\",\r\n  \"email\": \"userQA@example.com\",\r\n  \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"profile"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "401 - Unauthorized",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Karen 001\",\r\n  \"email\": \"userQA@example.com\",\r\n  \"password\": \"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/profile",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"profile"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "65"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"41-TJq3LYiwj1On+7IZ17oLU5tM1Zs\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 20:14:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Not authorized to access this route\"\n}"
+						}
+					]
+				},
+				{
+					"name": "TC027 - Criar reserva sem usuário estar autenticado",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"session\": \"685af22d255d81d0da4d1758\",\r\n  \"seats\": [\r\n    { \"row\": \"A\", \"number\": 7, \"type\": \"half\" },\r\n    { \"row\": \"B\", \"number\": 8, \"type\": \"full\" }\r\n  ],\r\n  \"user\": \"685d8d35d93340dcbb0312e6\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/reservations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"reservations"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "401 - Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"session\": \"685af22d255d81d0da4d1758\",\r\n  \"seats\": [\r\n    { \"row\": \"A\", \"number\": 7, \"type\": \"half\" },\r\n    { \"row\": \"B\", \"number\": 8, \"type\": \"full\" }\r\n  ],\r\n  \"user\": \"685d8d35d93340dcbb0312e6\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/reservations",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"reservations"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "65"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"41-TJq3LYiwj1On+7IZ17oLU5tM1Zs\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 20:21:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Not authorized to access this route\"\n}"
+						}
+					]
+				},
+				{
+					"name": "TC028 - Logout de usuário",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/auth/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "401 - Unauthorized",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/auth/me",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"me"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "65"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"41-TJq3LYiwj1On+7IZ17oLU5tM1Zs\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 20:25:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Not authorized to access this route\"\n}"
+						}
+					]
+				},
+				{
+					"name": "TC029 - Token expirado ou inválido",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"QA Test\",\r\n  \"capacity\": 1,\r\n  \"type\": \"standard\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "401 - Unauthorized",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWQ4ZDM1ZDkzMzQwZGNiYjAzMTJlNiIsImlhdCI6MTc1MDk2MjIzNSwiZXhwIjoxNzUxMDQ4NjM1fQ.1ilLlSF6rmL_KJ5PqoS2978NUPfk8be1FtaXSFd5cGY",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/auth/me",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"me"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "65"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"41-TJq3LYiwj1On+7IZ17oLU5tM1Zs\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 20:26:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Not authorized to access this route\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "admin & user - access control flow",
+			"item": [
+				{
+					"name": "TC030 - Usuário comum tenta deletar reserva",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWRiMTdlZDkzMzQwZGNiYjAzMTM4ZSIsImlhdCI6MTc1MDk3MDc1MCwiZXhwIjoxNzUxMDU3MTUwfQ.cqMb_LoTkVh_FJ4HoOSeuSWVn1GBIOgkZKVbzbdP3no",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/reservations/685af22d255d81d0da4d1749",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"reservations",
+								"685af22d255d81d0da4d1749"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "403 - Forbidden",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWRiMTdlZDkzMzQwZGNiYjAzMTM4ZSIsImlhdCI6MTc1MDk3MDc1MCwiZXhwIjoxNzUxMDU3MTUwfQ.cqMb_LoTkVh_FJ4HoOSeuSWVn1GBIOgkZKVbzbdP3no",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/reservations/685af22d255d81d0da4d1749",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"reservations",
+										"685af22d255d81d0da4d1749"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "83"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"53-HQ7D0c09eB4A2u3nNjjh5szO0JM\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 20:47:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"User role user is not authorized to access this route\"\n}"
+						}
+					]
+				},
+				{
+					"name": "TC031 - Usuário comum tenta criar filme",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWRiMTdlZDkzMzQwZGNiYjAzMTM4ZSIsImlhdCI6MTc1MDk3MDc1MCwiZXhwIjoxNzUxMDU3MTUwfQ.cqMb_LoTkVh_FJ4HoOSeuSWVn1GBIOgkZKVbzbdP3no",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Teste QA\",\r\n  \"synopsis\": \"tecnologia\",\r\n  \"director\": \"QA\",\r\n  \"genres\": [\r\n    \"string\"\r\n  ],\r\n  \"duration\": 1,\r\n  \"classification\": \"string\",\r\n  \"poster\": \"string\",\r\n  \"releaseDate\": \"2025-06-26\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/movies",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "403 - Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWRiMTdlZDkzMzQwZGNiYjAzMTM4ZSIsImlhdCI6MTc1MDk3MDc1MCwiZXhwIjoxNzUxMDU3MTUwfQ.cqMb_LoTkVh_FJ4HoOSeuSWVn1GBIOgkZKVbzbdP3no",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"title\": \"Teste QA\",\r\n  \"synopsis\": \"tecnologia\",\r\n  \"director\": \"QA\",\r\n  \"genres\": [\r\n    \"string\"\r\n  ],\r\n  \"duration\": 1,\r\n  \"classification\": \"string\",\r\n  \"poster\": \"string\",\r\n  \"releaseDate\": \"2025-06-26\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/movies",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"movies"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "83"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"53-HQ7D0c09eB4A2u3nNjjh5szO0JM\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 20:50:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"User role user is not authorized to access this route\"\n}"
+						}
+					]
+				},
+				{
+					"name": "TC032 - Usuário comum tenta deletar sessão",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWRiMTdlZDkzMzQwZGNiYjAzMTM4ZSIsImlhdCI6MTc1MDk3MDc1MCwiZXhwIjoxNzUxMDU3MTUwfQ.cqMb_LoTkVh_FJ4HoOSeuSWVn1GBIOgkZKVbzbdP3no",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/sessions/685db2f5d93340dcbb031397",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sessions",
+								"685db2f5d93340dcbb031397"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "403 - Forbidden",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWRiMTdlZDkzMzQwZGNiYjAzMTM4ZSIsImlhdCI6MTc1MDk3MDc1MCwiZXhwIjoxNzUxMDU3MTUwfQ.cqMb_LoTkVh_FJ4HoOSeuSWVn1GBIOgkZKVbzbdP3no",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/sessions/685db2f5d93340dcbb031397",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"sessions",
+										"685db2f5d93340dcbb031397"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "83"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"53-HQ7D0c09eB4A2u3nNjjh5szO0JM\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 20:52:29 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"User role user is not authorized to access this route\"\n}"
+						}
+					]
+				},
+				{
+					"name": "TC033 - Usuário comum tenta atualizar sala de teatro",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWRiMTdlZDkzMzQwZGNiYjAzMTM4ZSIsImlhdCI6MTc1MDk3MDc1MCwiZXhwIjoxNzUxMDU3MTUwfQ.cqMb_LoTkVh_FJ4HoOSeuSWVn1GBIOgkZKVbzbdP3no",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"QA Test\",\r\n  \"capacity\": 1,\r\n  \"type\": \"standard\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/theaters/685da6fad93340dcbb03137d",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"theaters",
+								"685da6fad93340dcbb03137d"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "403 - Forbidden",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWRiMTdlZDkzMzQwZGNiYjAzMTM4ZSIsImlhdCI6MTc1MDk3MDc1MCwiZXhwIjoxNzUxMDU3MTUwfQ.cqMb_LoTkVh_FJ4HoOSeuSWVn1GBIOgkZKVbzbdP3no",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"QA Test\",\r\n  \"capacity\": 1,\r\n  \"type\": \"standard\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/theaters/685da6fad93340dcbb03137d",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"theaters",
+										"685da6fad93340dcbb03137d"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "83"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"53-HQ7D0c09eB4A2u3nNjjh5szO0JM\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 20:54:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"User role user is not authorized to access this route\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "reservation viewing",
+			"item": [
+				{
+					"name": "TC034  - Visualizar reservas do usuário logado",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWRiMTdlZDkzMzQwZGNiYjAzMTM4ZSIsImlhdCI6MTc1MDk3MDc1MCwiZXhwIjoxNzUxMDU3MTUwfQ.cqMb_LoTkVh_FJ4HoOSeuSWVn1GBIOgkZKVbzbdP3no",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/reservations/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"reservations",
+								"me"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Lista de reservas pessoais",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWRiMTdlZDkzMzQwZGNiYjAzMTM4ZSIsImlhdCI6MTc1MDk3MDc1MCwiZXhwIjoxNzUxMDU3MTUwfQ.cqMb_LoTkVh_FJ4HoOSeuSWVn1GBIOgkZKVbzbdP3no",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/reservations/me",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"reservations",
+										"me"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "36"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"24-YA2qaqoHN76SgtFfK4UBGqyVP1w\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 21:00:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"count\": 0,\n    \"data\": []\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "validation of standards and fields",
+			"item": [
+				{
+					"name": "TC035 - Criar sessão sem data/hora",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWRiMTdlZDkzMzQwZGNiYjAzMTM4ZSIsImlhdCI6MTc1MDk3MTkyMiwiZXhwIjoxNzUxMDU4MzIyfQ.VWxFOsmN6QzIePm2IrQeiTqaOatcNvIk0Kg3lxr92RM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"movie\": \"685af22d255d81d0da4d1749\",\r\n  \"theater\": \"685af22d255d81d0da4d174c\",\r\n  \"datetime\": \" \",\r\n  \"fullPrice\": 20,\r\n  \"halfPrice\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/sessions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sessions"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "400 - Campo obrigatório faltando",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWRiMTdlZDkzMzQwZGNiYjAzMTM4ZSIsImlhdCI6MTc1MDk3MTkyMiwiZXhwIjoxNzUxMDU4MzIyfQ.VWxFOsmN6QzIePm2IrQeiTqaOatcNvIk0Kg3lxr92RM",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"movie\": \"685af22d255d81d0da4d1749\",\r\n  \"theater\": \"685af22d255d81d0da4d174c\",\r\n  \"datetime\": \" \",\r\n  \"fullPrice\": 20,\r\n  \"halfPrice\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/sessions",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"sessions"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "142"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8e-5+vkiEZrVJQITBK+E6ac9q0Hkgk\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 21:06:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Validation failed\",\n    \"errors\": {\n        \"datetime\": \"Cast to date failed for value \\\" \\\" (type string) at path \\\"datetime\\\"\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "TC036 - Criar sala de teatro sem capacidade",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWRiMTdlZDkzMzQwZGNiYjAzMTM4ZSIsImlhdCI6MTc1MDk3MTkyMiwiZXhwIjoxNzUxMDU4MzIyfQ.VWxFOsmN6QzIePm2IrQeiTqaOatcNvIk0Kg3lxr92RM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"QA Test\",\r\n  \"type\": \"standard\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/theaters",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"theaters"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "400 - Campo obrigatório faltando",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWRiMTdlZDkzMzQwZGNiYjAzMTM4ZSIsImlhdCI6MTc1MDk3MTkyMiwiZXhwIjoxNzUxMDU4MzIyfQ.VWxFOsmN6QzIePm2IrQeiTqaOatcNvIk0Kg3lxr92RM",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"QA Test\",\r\n  \"type\": \"standard\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/theaters",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"theaters"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "92"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5c-0UM+bRd6iCvCRYc3ZjQi+MkTaLk\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jun 2025 21:09:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Validation failed\",\n    \"errors\": {\n        \"capacity\": \"Capacity is required\"\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://localhost:3000/api/v1/"
+		}
+	]
+}
