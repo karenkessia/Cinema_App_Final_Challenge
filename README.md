@@ -1,9 +1,15 @@
+<img width="1024" height="134" alt="image" src="https://github.com/user-attachments/assets/e4df3eda-e3de-4f05-8642-9a14de4f0e37" />
+
+
 ##  Sobre
 
 Este repositório apresenta o projeto **Cinema App**, desenvolvido como parte do desafio final do programa de estágio **AWS & AI for Software Quality Engineering**, com foco em **Quality Assurance (QA)**, testes manuais e automatizados.
 
-📂 **Documentação completa, escopo detalhado e histórico do projeto** estão disponíveis no repositório original no Bitbucket:  
+ **Documentação completa, escopo detalhado e histórico do projeto** estão disponíveis no repositório original no Bitbucket:  
 🔗 https://bitbucket.org/cinematests/cinema_app_final_challenge/src/main/
+
+
+
 
 
 ## Introdução
@@ -155,3 +161,11 @@ Como diferencial técnico deste projeto, foi implementada uma **camada de inova�
 
 
 **Karen Késsia** é estagiária em **Quality Engineering**, apaixonada por **testes de software** e **análise de dados**. Com uma mente curiosa e comprometida com qualidade, ela busca tornar os produtos mais confiáveis, funcionais e acessíveis para os usuários.
+
+<p align="center">
+  <img 
+    src="https://github.com/user-attachments/assets/6e506927-8c94-4964-b74d-4f3775c3e4a4"
+    width="400"
+  />
+</p>
+
