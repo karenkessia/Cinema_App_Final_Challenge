@@ -1,13 +1,26 @@
-<img width="1024" height="134" alt="image" src="https://github.com/user-attachments/assets/e4df3eda-e3de-4f05-8642-9a14de4f0e37" />
-
-
 ##  Sobre
 
 Este repositório apresenta o projeto **Cinema App**, desenvolvido como parte do desafio final do programa de estágio **AWS & AI for Software Quality Engineering**, com foco em **Quality Assurance (QA)**, testes manuais e automatizados.
 
+<p align="center">
+  <img 
+    src="https://github.com/user-attachments/assets/e4df3eda-e3de-4f05-8642-9a14de4f0e37"
+    width="200"
+    alt="image"
+  />
+</p>
+
  **Documentação completa, escopo detalhado e histórico do projeto** estão disponíveis no repositório original no Bitbucket:  
 🔗 https://bitbucket.org/cinematests/cinema_app_final_challenge/src/main/
 
+
+<p align="center">
+  <img 
+    src="https://github.com/user-attachments/assets/4790570c-71f0-4ae7-83cc-f4a622a3a54c"
+    width="621"
+    alt="image"
+  />
+</p>
 
 
 
